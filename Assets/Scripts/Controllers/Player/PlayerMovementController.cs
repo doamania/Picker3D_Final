@@ -52,7 +52,7 @@ namespace Controllers.Player
             }
             else
             {
-                StopPlayerHorizontaly();
+                StopPlayerHorizontally();
             }
         }
 
@@ -72,7 +72,7 @@ namespace Controllers.Player
             rigidbody.position = position;
         }
 
-        private void StopPlayerHorizontaly()
+        private void StopPlayerHorizontally()
         {
             rigidbody.velocity = new float3(0, rigidbody.velocity.y, _data.ForwardSpeed);
             rigidbody.angularVelocity = float3.zero;
