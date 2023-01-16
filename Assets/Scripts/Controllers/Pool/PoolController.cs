@@ -76,6 +76,7 @@ namespace Controllers.Pool
             foreach (var animation in tweenAnimations)
             {
                 animation.DOPlay();
+                poolText.gameObject.SetActive(false);
             }
         }
 
