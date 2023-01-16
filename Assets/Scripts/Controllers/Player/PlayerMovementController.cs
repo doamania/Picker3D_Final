@@ -1,6 +1,8 @@
-﻿using Data.ValueObjects;
+﻿using System;
+using Data.ValueObjects;
 using Keys;
 using Managers;
+using Signals;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
@@ -28,10 +30,35 @@ namespace Controllers.Player
 
         private float _xValue;
         private float2 _clampValues;
-
+        
         #endregion
 
         #endregion
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onLevelEnd += OnLevelEnd;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            CoreGameSignals.Instance.onLevelEnd -= OnLevelEnd;
+        }
+
+        private void OnLevelEnd(int asd)
+        {
+            _data.ForwardSpeed = 20;
+        }
 
         internal void SetMovementData(MovementData movementData)
         {
