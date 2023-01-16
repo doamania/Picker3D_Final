@@ -19,6 +19,12 @@ namespace Controllers.Player
 
         #endregion
 
+        #region Private Variables
+
+        private byte _lastCollectedAmount;
+
+        #endregion
+
         #endregion
 
 
@@ -32,6 +38,23 @@ namespace Controllers.Player
 
                 DOVirtual.DelayedCall(3, () =>
                 {
+                    // if (other.TryGetComponent(out PoolController pool))
+                    // {
+                    //     bool resul = pool.TakeStageResult(manager.StageID);
+                    //     _lastCollectedAmount = pool.TakeCollectedAmount();
+                    //
+                    //     if (resul)
+                    //     {
+                    //         CoreGameSignals.Instance.onStageAreaSuccessful?.Invoke(manager.StageID);
+                    //         UISignals.Instance.onSetStageColor?.Invoke(manager.StageID);
+                    //         InputSignals.Instance.onEnableInput?.Invoke();
+                    //         manager.StageID++;
+                    //     }
+                    //     else
+                    //     {
+                    //         CoreGameSignals.Instance.onLevelFailed?.Invoke();
+                    //     }
+                    // }
                     var result = other.transform.parent.GetComponentInChildren<PoolController>()
                         .TakeStageResult(manager.StageID);
                     if (result)
@@ -44,6 +67,12 @@ namespace Controllers.Player
                     else CoreGameSignals.Instance.onLevelFailed?.Invoke();
                 });
                 return;
+            }
+
+            if (other.CompareTag("Finish"))
+            {
+                print(_lastCollectedAmount);
+                CoreGameSignals.Instance.onLevelEnd?.Invoke(_lastCollectedAmount);
             }
         }
 
