@@ -7,6 +7,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/MessageShower/Scripts/MessageManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -81,7 +84,7 @@
       <workItem from="1673869085287" duration="4799000" />
       <workItem from="1673890605068" duration="226000" />
       <workItem from="1673890857209" duration="26000" />
-      <workItem from="1673891048412" duration="6614000" />
+      <workItem from="1673891048412" duration="7601000" />
     </task>
     <servers />
   </component>

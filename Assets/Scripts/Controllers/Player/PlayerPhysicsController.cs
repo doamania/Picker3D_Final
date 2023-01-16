@@ -75,14 +75,18 @@ namespace Controllers.Player
             }
         }
 
+        private string _message;
         private void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent(out DiamondBox diamondBox))
             {
                 if(movementController.VelocityVector.z > 0) return;
                 if(manager.LevelEndDiamond == diamondBox.value) return;
-                
+
+                _message = "+ " + manager.LevelEndDiamond;
                 manager.LevelEndDiamond = diamondBox.value;
+                
+                MessageManager.instance.Show(_message);
             }
         }
 
