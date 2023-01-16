@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 6467165669467704083}
+  movementController: {fileID: 6467165669467704082}
   collider: {fileID: 0}
   rigidbody: {fileID: 0}
 --- !u!1 &6467165669467704081

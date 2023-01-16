@@ -1,5 +1,6 @@
 ﻿using System;
 using Data.ValueObjects;
+using DG.Tweening;
 using Keys;
 using Managers;
 using Signals;
@@ -30,7 +31,18 @@ namespace Controllers.Player
 
         private float _xValue;
         private float2 _clampValues;
+        private float _tempSpeed;
         
+        #endregion
+
+        #endregion
+
+        #region Properties
+
+        #region Public Properties
+
+        public Vector3 VelocityVector => rigidbody.velocity;
+
         #endregion
 
         #endregion
@@ -55,9 +67,22 @@ namespace Controllers.Player
             CoreGameSignals.Instance.onLevelEnd -= OnLevelEnd;
         }
 
-        private void OnLevelEnd(int asd)
+        private void OnLevelEnd()
         {
-            _data.ForwardSpeed = 20;
+            _tempSpeed = _data.ForwardSpeed * _data.MiniGameMultiplier;
+            DOTween.To(() => _tempSpeed, x => _tempSpeed = x, 5, UnityEngine.Random.Range(3, 7))
+                .OnUpdate(() =>
+                {
+                    _data.ForwardSpeed = _tempSpeed;
+                })
+                .OnComplete(() =>
+                {
+                    _data.ForwardSpeed = 0;
+                    DOVirtual.DelayedCall(3, () =>
+                    {
+                        CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
+                    });
+                });
         }
 
         internal void SetMovementData(MovementData movementData)

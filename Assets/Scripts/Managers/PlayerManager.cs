@@ -16,6 +16,7 @@ namespace Managers
 
         internal byte StageID;
         internal ForceBallsToPoolCommand ForceCommand;
+        internal int LevelEndDiamond;
 
         #endregion
 

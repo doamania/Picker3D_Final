@@ -1,4 +1,5 @@
 ﻿using System;
+using Collidables;
 using Controllers.Pool;
 using DG.Tweening;
 using Managers;
@@ -14,15 +15,14 @@ namespace Controllers.Player
         #region Serialized Variables
 
         [SerializeField] private PlayerManager manager;
+        [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private new Collider collider;
         [SerializeField] private new Rigidbody rigidbody;
 
         #endregion
 
         #region Private Variables
-
-        private byte _lastCollectedAmount;
-
+        
         #endregion
 
         #endregion
@@ -71,8 +71,18 @@ namespace Controllers.Player
 
             if (other.CompareTag("Finish"))
             {
-                print(_lastCollectedAmount);
-                CoreGameSignals.Instance.onLevelEnd?.Invoke(_lastCollectedAmount);
+                CoreGameSignals.Instance.onLevelEnd?.Invoke();
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.TryGetComponent(out DiamondBox diamondBox))
+            {
+                if(movementController.VelocityVector.z > 0) return;
+                if(manager.LevelEndDiamond == diamondBox.value) return;
+                
+                manager.LevelEndDiamond = diamondBox.value;
             }
         }
 
