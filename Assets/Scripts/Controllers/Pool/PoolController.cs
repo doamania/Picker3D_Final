@@ -124,5 +124,10 @@ namespace Controllers.Pool
 
             return false;
         }
+
+        public byte TakeCollectedAmount()
+        {
+            return _collectedCount;
+        }
     }
 }
